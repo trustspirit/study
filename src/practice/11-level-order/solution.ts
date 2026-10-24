@@ -9,5 +9,26 @@ export class TreeNode {
 }
 
 export function levelOrder(root: TreeNode | null): number[][] {
-  return [];
+  if (root === null) return [];
+
+  const result: number[][] = [];
+  const queue: TreeNode[] = [root];
+  let head = 0;
+
+  while (head < queue.length) {
+    const levelEnd = queue.length;
+    const level: number[] = [];
+
+    while (head < levelEnd) {
+      const node = queue[head++];
+      level.push(node.val);
+
+      if (node.left !== null) queue.push(node.left);
+      if (node.right !== null) queue.push(node.right);
+    }
+
+    result.push(level);
+  }
+
+  return result;
 }
