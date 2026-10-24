@@ -3,5 +3,25 @@
 // 끝과 시작이 같으면([1,4],[4,5]) 겹치는 것으로 본다.
 // [[1,3],[2,6],[8,10],[15,18]] -> [[1,6],[8,10],[15,18]]
 export function merge(intervals: number[][]): number[][] {
-  return [];
+  // sorted
+  const sorted = [...intervals].sort((a, b) => a[0] - b[0]);
+  const merged: number[][] = [];
+  let current = sorted[0];
+
+  if (!current) return [];
+
+  for (let i = 1; i < sorted.length; i++) {
+    const next = sorted[i];
+
+    if (current[1] >= next[0]) {
+      current = [current[0], Math.max(current[1], next[1])];
+    } else {
+      merged.push(current);
+      current = next;
+    }
+  }
+
+  merged.push(current);
+
+  return merged;
 }
