@@ -5,6 +5,17 @@
 // 제약: 0 <= words.length <= 100000, 단어 길이 1~30, 0 <= k <= 서로 다른 단어 수.
 // k=0이면 []. 우선 정렬 방식으로 풀고 시간·공간 복잡도를 설명하세요.
 export function topKFrequentWords(words: string[], k: number): string[] {
-  // TODO: 직접 구현하세요.
-  return [];
+  const countMap = new Map<string, number>();
+
+  for (const word of words) {
+    countMap.set(word, (countMap.get(word) ?? 0) + 1);
+  }
+
+  const sorted = [...countMap.entries()].sort((a, b) => {
+    if (b[1] !== a[1]) return b[1] - a[1];
+
+    return a[0].localeCompare(b[0]);
+  });
+
+  return sorted.slice(0, k).map(([word]) => word);
 }

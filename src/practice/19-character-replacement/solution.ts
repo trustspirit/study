@@ -5,6 +5,5 @@
 // 제약: 0 <= s.length <= 100000, 대문자 A-Z만 포함, 0 <= k <= s.length.
 // 목표 시간 O(n), 추가 공간 O(1) (문자 종류는 26개).
 export function characterReplacement(s: string, k: number): number {
-  // TODO: 직접 구현하세요.
   return 0;
 }

@@ -5,6 +5,18 @@
 // 제약: 0 <= temperatures.length <= 100000, 기온은 0~100인 정수.
 // 결과 배열 길이는 입력과 같습니다. 목표 시간 O(n).
 export function dailyTemperatures(temperatures: number[]): number[] {
-  // TODO: 직접 구현하세요.
-  return [];
+  const result = new Array(temperatures.length).fill(0);
+  const stack: number[] = [];
+
+  for (let i = 0; i < temperatures.length; i++) {
+    while (
+      stack.length > 0 &&
+      temperatures[i] > temperatures[stack[stack.length - 1]]
+    ) {
+      const idx = stack.pop()!;
+      result[idx] = i - idx;
+    }
+    stack.push(i);
+  }
+  return result;
 }

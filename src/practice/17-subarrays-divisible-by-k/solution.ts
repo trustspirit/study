@@ -5,6 +5,19 @@
 // 제약: 0 <= nums.length <= 100000, -10000 <= nums[i] <= 10000, 1 <= k <= 10000.
 // 목표 시간 O(n). JavaScript에서 음수 % 양수의 결과에 주의하세요.
 export function subarraysDivByK(nums: number[], k: number): number {
-  // TODO: 직접 구현하세요.
-  return 0;
+  const remainderCounts = new Map<number, number>();
+  remainderCounts.set(0, 1);
+  let sum = 0;
+  let count = 0;
+
+  for (const num of nums) {
+    sum += num;
+    const mod = ((sum % k) + k) % k; // 음수 처리
+    if (remainderCounts.has(mod)) {
+      count += remainderCounts.get(mod)!;
+    }
+    remainderCounts.set(mod, (remainderCounts.get(mod) ?? 0) + 1);
+  }
+
+  return count;
 }
